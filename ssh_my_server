@@ -1,0 +1,16 @@
+#!/bin/zsh
+#
+# Install:
+#   Add this bash as excutable file
+#   eg: put it to ~/bin, then `chmod +x ssh_my_server`, and you can excute it.
+# Usage: 
+#   $ ~/bin/ssh_my_server
+#
+vm_mac="8:0:27:a2:8b:5d"
+user="deploy"
+
+virt-addr() {
+  arp -an | grep $vm_mac | awk '{ gsub(/[\(\)]/,"",$2); print $2 }'
+}
+
+ssh "$user@`virt-addr`"
